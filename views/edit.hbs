@@ -2,6 +2,7 @@
   {{#each editorConfig.fields as |field|}}
     <p>
       <div>{{field.title}}</div>
+
       {{#equal field.type 'text'}}
         <input type="text" name="{{pathToParam field.path}}" value="{{get ../editorSource field.path}}">
       {{/equal}}
@@ -15,4 +16,4 @@
     <input type="submit" value="Save">
   </p>
 </form>
-<iframe src="/{{previewBase}}{{editorConfig.previewPath}}" width="500" height="500">
+<iframe src="{{editorConfig.previewPath}}?cachebust={{currentTime}}" width="500" height="500">

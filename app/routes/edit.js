@@ -56,7 +56,7 @@ function writeSource(sourceConfig, newData) {
 }
 
 module.exports = app => {
-  app.get('/edit/:editor', (req, res) => {
+  app.get(`/${config.editBasePath}/:editor`, (req, res) => {
     const editorConfig = _.find(config.editors, {name: req.params.editor});
     readSource(editorConfig.source)
       .then(editorSource => {
@@ -67,7 +67,7 @@ module.exports = app => {
       });
   });
 
-  app.post('/edit/:editor', (req, res) => {
+  app.post(`/${config.editBasePath}/:editor`, (req, res) => {
     const editorConfig = _.find(config.editors, {name: req.params.editor});
     writeSource(editorConfig.source, req.body)
       .then(() => res.redirect(req.path))

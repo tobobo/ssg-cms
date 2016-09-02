@@ -1,7 +1,7 @@
 module.exports = {
   port: 3000,
-  previewBase: 'preview',
   sitePath: 'site',
+  editBasePath: 'edit',
   siteConfig: 'config.json',
   editors: [
     {

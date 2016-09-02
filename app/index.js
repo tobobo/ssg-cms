@@ -8,7 +8,7 @@ const exphbs = require('express-handlebars');
 const config = require(`${root}/config`);
 
 const app = express();
-const jsonParser = bodyParser.urlencoded({extended: true});
+const urlencodedParser = bodyParser.urlencoded({extended: true});
 
 app.engine('.hbs', exphbs({
   defaultLayout: 'app',
@@ -17,9 +17,9 @@ app.engine('.hbs', exphbs({
     get: _.get,
     pathToParam: (path) => {
       const pathSegments = path.split('.');
-      return _.first(pathSegments) + _.reduce(_.tail(pathSegments), (memo, segment) =>
+      return _.reduce(_.tail(pathSegments), (memo, segment) =>
         `${memo}[${segment}]`
-      , '');
+      , _.first(pathSegments));
     },
     equal: require('handlebars-helper-equal'),
   },
@@ -30,20 +30,22 @@ app.set('view engine', '.hbs');
 app.use((req, res, next) => {
   res.locals = _.extend({}, res.locals, {
     currentTime: Date.now(),
-    previewBase: config.previewBase,
+    config,
   });
   next();
 });
 
 app.use((req, res, next) => {
-  if (_.includes(['POST', 'PUT'], req.method)) return jsonParser(req, res, next);
+  if (_.includes(['POST', 'PUT'], req.method)) return urlencodedParser(req, res, next);
   return next();
 });
 
+const routeRoot = `${root}/app/routes`;
 _.forEach([
-  `${root}/app/routes/index`,
-  `${root}/app/routes/edit`,
-  `${root}/app/routes/preview`,
+  `${routeRoot}/preview`,
+  `${routeRoot}/index`,
+  `${routeRoot}/upload`,
+  `${routeRoot}/edit`,
 ], modulePath => require(modulePath)(app));
 
 module.exports = app;

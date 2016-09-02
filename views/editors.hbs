@@ -1,5 +1,5 @@
 <ul>
   {{#each editors as |editor|}}
-    <li><a href="/edit/{{editor.name}}">{{editor.title}}</a></li>
+    <li><a href="/{{../config.editBasePath}}/{{editor.name}}">{{editor.title}}</a></li>
   {{/each}}
 </ul>
