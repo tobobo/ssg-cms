@@ -9,10 +9,14 @@ const config = require(`${root}/config`);
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({extended: true});
+const viewsDir = 'app/views';
 
+app.set('views', viewsDir);
 app.engine('.hbs', exphbs({
   defaultLayout: 'app',
   extname: '.hbs',
+  layoutsDir: `${viewsDir}/layouts`,
+  partialsDir: `${viewsDir}/partials`,
   helpers: {
     get: _.get,
     pathToParam: (path) => {
@@ -40,9 +44,16 @@ app.use((req, res, next) => {
   return next();
 });
 
+app.set('getAssetServer', require(`${root}/app/lib/asset_server`)(app));
+
+const middlewareRoot = `${root}/app/middleware`;
+_.forEach([
+  `${middlewareRoot}/preview`,
+  `${middlewareRoot}/public`,
+], modulePath => require(modulePath)(app));
+
 const routeRoot = `${root}/app/routes`;
 _.forEach([
-  `${routeRoot}/preview`,
   `${routeRoot}/index`,
   `${routeRoot}/upload`,
   `${routeRoot}/edit`,
