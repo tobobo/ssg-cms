@@ -1,6 +1,7 @@
 module.exports = {
   port: 3000,
   sitePath: 'site',
+  distPath: 'dist',
   editBasePath: 'edit',
   siteConfig: 'config.json',
   editors: [
