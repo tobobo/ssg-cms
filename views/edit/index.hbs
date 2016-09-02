@@ -1,0 +1,12 @@
+<form action="/edit" method="post">
+  <p>Page title: <input name="page[meta][title]" id="page[meta][title]" value="{{page.meta.title}}"></p>
+  <p>Page contents:</p>
+  <textarea name="page[markdown]" rows="20" cols="80">{{page.markdown}}</textarea>
+  <p>
+    <input type="submit" value="Submit">
+  </p>
+</form>
+<p>
+  <a href="/{{previewBase}}" target="_blank">Preview</a>
+</p>
+<iframe width="500" height="500" src="/{{previewBase}}?cachebust={{currentTime}}">
