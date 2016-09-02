@@ -6,10 +6,10 @@ const config = require(`${root}/config`);
 const PORT = config.port;
 const SITE_PATH = config.sitePath;
 const PREVIEW_PORT = PORT + 1;
-const PREVIEW_DELAY = 0;
+const PREVIEW_DELAY = 100;
 const PREVIEW_RETRY = 100;
 const PREVIEW_TIMEOUT = 10000;
-const PREVIEW_BASE = 'preview';
+const PREVIEW_BASE = config.previewBase;
 
 const spawn = require('child_process').spawn;
 const chalk = require('chalk');
@@ -40,8 +40,6 @@ function trySendPreview(startTime, req, res, path) {
 }
 
 module.exports = app => {
-  app.locals = _.extend(app.locals, {previewBase: PREVIEW_BASE});
-
   app.get(`/${PREVIEW_BASE}/:preview_path?*`, (req, res) => {
     const path = req.params[0];
     sendPreview(req, res, path);

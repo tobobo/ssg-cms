@@ -11,6 +11,9 @@
     "global-require": 0,
     "no-console": 0,
     "newline-after-import": 0,
-    "no-param-reassign": 1
+    "no-param-reassign": 1,
+    "consistent-return": 1,
+    "space-before-function-paren": 0,
+    "prefer-template": 1
   }
 }
