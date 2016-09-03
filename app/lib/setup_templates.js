@@ -19,6 +19,8 @@ module.exports = app => {
       },
       equal: require('handlebars-helper-equal'),
       json: JSON.stringify,
+      concat: (...args) =>
+        _.join(args.slice(0, -1), ''),
     },
   }));
 

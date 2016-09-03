@@ -24,6 +24,29 @@ module.exports = {
     },
     {
       previewPath: '/',
+      name: 'list',
+      title: 'Item list config',
+      source: {
+        filename: 'config.json',
+        type: 'json',
+      },
+      fields: [
+        {
+          title: 'Item list',
+          path: 'locals.itemList',
+          type: 'list',
+          itemFields: [
+            {
+              title: 'Property name',
+              path: 'prop',
+              type: 'text',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      previewPath: '/',
       name: 'index',
       title: 'Homepage',
       source: {
