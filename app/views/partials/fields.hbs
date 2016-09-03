@@ -1,0 +1,36 @@
+{{#each fields as |field|}}
+  <p>
+    <div>{{field.title}}</div>
+
+    {{#equal field.type 'text'}}
+      <input
+        type="text"
+        name="{{pathToParam (concat ../fieldPrefix field.path)}}"
+        value="{{get ../editorSource (concat ../fieldPrefix field.path)}}"
+      >
+    {{/equal}}
+
+    {{#equal field.type 'textarea'}}
+      <textarea
+        name="{{pathToParam (concat ../fieldPrefix field.path)}}"
+        cols="50"
+        rows="15"
+>{{get ../editorSource (concat ../fieldPrefix field.path)}}</textarea>
+    {{/equal}}
+
+    {{#equal field.type 'list'}}
+      <ul>
+        {{#each (get ../editorSource field.path) as |listItem itemIndex|}}
+          <li>
+{{> fields
+  editorConfig=../../editorConfig
+  fields=field.itemFields
+  editorSource=../../editorSource
+  fieldPrefix=(concat ../fieldPrefix field.path '.' itemIndex '.')
+}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/equal}}
+  </p>
+{{/each}}

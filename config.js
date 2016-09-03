@@ -41,6 +41,11 @@ module.exports = {
               path: 'prop',
               type: 'text',
             },
+            {
+              title: 'Other property name',
+              path: 'otherProp',
+              type: 'text',
+            },
           ],
         },
       ],

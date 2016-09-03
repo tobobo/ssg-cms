@@ -1,33 +1,7 @@
 <form method="post">
-  {{#each editorConfig.fields as |field|}}
-    <p>
-      <div>{{field.title}}</div>
-
-      {{#equal field.type 'text'}}
-        <input type="text" name="{{pathToParam field.path}}" value="{{get ../editorSource field.path}}">
-      {{/equal}}
-
-      {{#equal field.type 'textarea'}}
-        <textarea name="{{pathToParam field.path}}" cols="50" rows="15">{{get ../editorSource field.path}}</textarea>
-      {{/equal}}
-
-      {{#equal field.type 'list'}}
-        <ul>
-          {{#each (get ../editorSource field.path) as |listItem itemIndex|}}
-            <li>
-              {{#each field.itemFields as |itemField|}}
-                {{#equal itemField.type 'text'}}
-                  <input type="text" name="{{pathToParam (concat field.path '.' itemIndex '.' itemField.path)}}" value="{{get ../../../editorSource (concat field.path '.' itemIndex '.' itemField.path)}}">
-                {{/equal}}
-              {{/each}}
-            </li>
-          {{/each}}
-        </ul>
-      {{/equal}}
-    </p>
-  {{/each}}
-  <p>
-    <input type="submit" value="Save">
-  </p>
+{{> fields editorConfig=editorConfig fields=editorConfig.fields editorSource=editorSource fieldPrefix=''}}
+<p>
+  <input type="submit" value="Save">
+</p>
 </form>
 {{> preview previewPath=editorConfig.previewPath}}
