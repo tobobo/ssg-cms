@@ -26,12 +26,7 @@ module.exports = app => {
   app.get(`/${config.editBasePath}/:editor`, (req, res) => {
     const editorConfig = _.find(config.editors, {name: req.params.editor});
     readSource(editorConfig.source)
-      .then(editorSource => {
-        res.render('edit', {
-          editorConfig,
-          editorSource,
-        });
-      });
+      .then(editorSource => res.render('edit', {editorConfig, editorSource}));
   });
 
   app.post(`/${config.editBasePath}/:editor`, (req, res) => {

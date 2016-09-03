@@ -1,6 +1,5 @@
 const createSocket = require('socket.io');
 
-module.exports = httpServer => {
-  const socket = createSocket(httpServer);
-  return socket;
+module.exports = app => {
+  app.set('socketIo', createSocket(app.get('server')));
 };
