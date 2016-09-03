@@ -3,7 +3,6 @@ const config = require(`${root}/config`);
 const traverse = require('traverse');
 const metaMarked = require('meta-marked');
 const YAML = require('yamljs');
-const _ = require('lodash');
 
 const {readFileP, writeFileP} = require(`${root}/app/lib/file_utils`);
 

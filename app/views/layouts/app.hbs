@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>SSG CMS</title>
-    <link rel="stylesheet" type="text/css" href="/{{config.editBasePath}}/public/style.css">
+    <link rel="stylesheet" type="text/css" href="{{assetBaseUrl}}/style.css">
   </head>
   <body>
-    <p>
-      <a href="/{{config.editBasePath}}">Editor Home</a> -
-      <a href="/{{config.editBasePath}}/upload">Upload</a> -
-      <a href="/" target="_blank">Preview</a> -
-      <a href="{{config.productionUrl}}" target="_blank">Production site</a>
-    <p>
-    <h1>Editor</h1>
+    <header>
+      <div>
+        <a href="/{{config.editBasePath}}">Editor Home</a> -
+        <a href="/{{config.editBasePath}}/upload">Upload</a> -
+        <a href="/" target="_blank">Preview</a> -
+        <a href="{{config.productionUrl}}" target="_blank">Production site</a>
+      <div>
+    </header>
     {{{ body }}}
     <script src="/socket.io/socket.io.js"></script>
     <script src="{{assetBaseUrl}}/index.js"></script>

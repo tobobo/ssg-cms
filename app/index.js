@@ -1,9 +1,8 @@
 const root = '..';
 
-const _ = require('lodash');
+global._ = require('lodash');
 const express = require('express');
 const createServer = require('http').Server;
-const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
 const config = require(`${root}/config`);
@@ -12,7 +11,6 @@ const setupSocket = require(`${root}/app/lib/setup_socket.js`);
 const app = express();
 const httpServer = createServer(app);
 app.set('socketIo', setupSocket(httpServer));
-const urlencodedParser = bodyParser.urlencoded({extended: true});
 const viewsDir = 'app/views';
 
 app.set('views', viewsDir);
@@ -43,17 +41,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  if (_.includes(['POST', 'PUT'], req.method)) return urlencodedParser(req, res, next);
-  return next();
-});
-
-app.set('getAssetServer', require(`${root}/app/lib/asset_server`)(app));
-
 const middlewareRoot = `${root}/app/middleware`;
 _.forEach([
   `${middlewareRoot}/preview`,
-  `${middlewareRoot}/public`,
+  `${middlewareRoot}/body_parser`,
+  `${middlewareRoot}/asset_server`,
 ], modulePath => require(modulePath)(app));
 
 const routeRoot = `${root}/app/routes`;

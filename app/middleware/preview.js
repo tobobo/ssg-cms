@@ -1,5 +1,4 @@
 const root = '../..';
-const _ = require('lodash');
 const request = require('request');
 const pathToRegexp = require('path-to-regexp');
 

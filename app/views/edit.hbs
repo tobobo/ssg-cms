@@ -8,7 +8,7 @@
       {{/equal}}
 
       {{#equal field.type 'textarea'}}
-        <textarea name="{{pathToParam field.path}}" cols="50" rows="30">{{get ../editorSource field.path}}</textarea>
+        <textarea name="{{pathToParam field.path}}" cols="50" rows="15">{{get ../editorSource field.path}}</textarea>
       {{/equal}}
     </p>
   {{/each}}
