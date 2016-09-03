@@ -1,57 +1,25 @@
 const root = '../..';
 const config = require(`${root}/config`);
-const traverse = require('traverse');
-const metaMarked = require('meta-marked');
-const YAML = require('yamljs');
+const sources = require(`${root}/app/lib/sources`);
 
-const {readFileP, writeFileP} = require(`${root}/app/lib/file_utils`);
-
-function traverseAndExtend(base, newData) {
-  traverse(newData).forEach(function(datum) {
-    if (this.isLeaf) _.set(base, this.path, datum);
-  });
-  return base;
+function sourceError(sourceConfig) {
+  return new Error(`no such source: ${sourceConfig.type}`);
 }
 
-function metaMarkToString(metaMarkObj) {
-  return '---\n' +
-    YAML.stringify(metaMarkObj.meta) +
-    '---\n' +
-    `${metaMarkObj.markdown}\n`;
+function sourcePath(sourceConfig) {
+  return `${config.sitePath}/${sourceConfig.filename}`;
 }
 
 function readSource(sourceConfig) {
-  const filePath = `${config.sitePath}/${sourceConfig.filename}`;
-  if (sourceConfig.type === 'json') {
-    return readFileP(filePath, 'utf8')
-      .then(data => JSON.parse(data));
-  } else if (sourceConfig.type === 'md') {
-    return readFileP(filePath, 'utf8')
-      .then((data) => {
-        const pageData = metaMarked(data.toString());
-        pageData.markdown = _.trim(pageData.markdown);
-        return pageData;
-      });
-  }
+  const source = sources[sourceConfig.type];
+  if (source) return source.read(sourcePath(sourceConfig));
+  throw sourceError(sourceConfig);
 }
 
 function writeSource(sourceConfig, newData) {
-  const filePath = `${config.sitePath}/${sourceConfig.filename}`;
-  if (sourceConfig.type === 'json') {
-    return readSource(sourceConfig)
-      .then(editorSource => {
-        traverseAndExtend(editorSource, newData);
-        const newConfigJson = JSON.stringify(editorSource, null, 2);
-        return writeFileP(filePath, newConfigJson);
-      });
-  } else if (sourceConfig.type === 'md') {
-    return readSource(sourceConfig)
-      .then(editorSource => {
-        traverseAndExtend(editorSource, newData);
-        editorSource.markdown = _.trim(editorSource.markdown);
-        return writeFileP(filePath, metaMarkToString(editorSource));
-      });
-  }
+  const source = sources[sourceConfig.type];
+  if (source) return source.write(sourcePath(sourceConfig), newData);
+  throw sourceError(sourceConfig);
 }
 
 module.exports = app => {
@@ -69,7 +37,10 @@ module.exports = app => {
   app.post(`/${config.editBasePath}/:editor`, (req, res) => {
     const editorConfig = _.find(config.editors, {name: req.params.editor});
     writeSource(editorConfig.source, req.body)
-      .then(() => res.redirect(req.path))
+      .then(() => {
+        req.flash('success', `${editorConfig.title} saved`);
+        res.redirect(req.path);
+      })
       .catch(err => { console.log(err, err.stack); res.sendStatus(500); });
   });
 };

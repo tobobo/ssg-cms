@@ -11,5 +11,17 @@ h1 {
 }
 
 h2 {
-  font-sizE: 1.25em;
+  font-size: 1.25em;
+}
+
+.flash-container {
+  margin: 5px 0;
+}
+
+.flash {
+  padding: 5px 10px;
+}
+
+.flash.success {
+  background-color: #73c594;
 }

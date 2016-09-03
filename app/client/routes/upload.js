@@ -15,6 +15,13 @@ module.exports = app => {
     socket.on('build_upload_start', () => concatBuildInfo('upload start\n'));
     socket.on('build_stdout', concatBuildInfo);
     socket.on('build_stderr', concatBuildInfo);
-    socket.on('build_complete', url => concatBuildInfo(`build complete. ${url}\n`));
+    socket.on('upload_complete', () => concatBuildInfo(`upload complete\n`));
+    socket.on('build_complete', url => {
+      concatBuildInfo(`build complete. ${url}\n`);
+      app.flash(
+        'success',
+        `build complete! check it out at <a href="${url}" target="_blank">${url}</a>`
+      );
+    });
   });
 };

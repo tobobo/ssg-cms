@@ -4,8 +4,14 @@
     <meta charset="utf-8">
     <title>SSG CMS</title>
     <link rel="stylesheet" type="text/css" href="{{assetBaseUrl}}/style.css">
+    {{#if flashes}}
+      <script type="text/javascript">
+        window.flashes = {{{json flashes}}};
+      </script>
+    {{/if}}
   </head>
   <body>
+    <div class="flash-container js-flash-container"></div>
     <header>
       <div>
         <a href="/{{config.editBasePath}}">Editor Home</a> -

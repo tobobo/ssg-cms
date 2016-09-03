@@ -19,6 +19,7 @@ module.exports = app => {
         upload({
           data: data => io.emit('build_stdout', String(data)),
           exit: () => {
+            io.emit('upload_complete');
             io.emit('build_complete', config.productionUrl);
             res.sendStatus(200);
           },

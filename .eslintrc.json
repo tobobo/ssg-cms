@@ -5,7 +5,8 @@
     "node": true
   },
   "globals": {
-    "$": true
+    "$": true,
+    "_": true
   },
   "plugins": [
       "react",
