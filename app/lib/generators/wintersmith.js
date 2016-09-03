@@ -17,11 +17,13 @@ module.exports = {
     });
   },
 
-  build({exit}) {
+  build({data, error, exit}) {
     return runWithOutput({
       cmd: WINTERSMITH_COMMAND,
       opts: ['build', '-C', config.sitePath, '-o', path.join('..', config.distPath)],
       logPrefix: 'build',
+      data,
+      error,
       exit,
     });
   },

@@ -2,12 +2,16 @@ const root = '..';
 
 const _ = require('lodash');
 const express = require('express');
+const createServer = require('http').Server;
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
 const config = require(`${root}/config`);
+const setupSocket = require(`${root}/app/lib/setup_socket.js`);
 
 const app = express();
+const httpServer = createServer(app);
+app.set('socketIo', setupSocket(httpServer));
 const urlencodedParser = bodyParser.urlencoded({extended: true});
 const viewsDir = 'app/views';
 
@@ -58,5 +62,9 @@ _.forEach([
   `${routeRoot}/upload`,
   `${routeRoot}/edit`,
 ], modulePath => require(modulePath)(app));
+
+app.set('startCmsServer', () => {
+  httpServer.listen(config.port, () => console.log(`cms server listening on port ${config.port}`))
+});
 
 module.exports = app;

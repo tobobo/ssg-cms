@@ -1,5 +1,12 @@
 {
   "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "$": true
+  },
   "plugins": [
       "react",
       "jsx-a11y",
@@ -14,6 +21,7 @@
     "no-param-reassign": 1,
     "consistent-return": 1,
     "space-before-function-paren": 0,
-    "prefer-template": 1
+    "prefer-template": 1,
+    "no-return-assign": 1
   }
 }

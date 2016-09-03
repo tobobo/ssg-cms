@@ -15,7 +15,7 @@ module.exports = app => () => {
 
   function rebundle() {
     bundler.bundle()
-      .on('error', (err) => { console.error(err); this.emit('end'); })
+      .on('error', function(err) { console.error(err); this.emit('end'); })
       .pipe(source('index.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))

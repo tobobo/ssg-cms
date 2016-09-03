@@ -7,11 +7,11 @@ const gulpS3 = require('gulp-s3-upload')({
   region: 'us-west-2',
 });
 
-module.exports = (done) => {
+module.exports = ({error, exit}) => {
   const stream = gulp.src(`${config.distPath}/**`)
     .pipe(gulpS3({
       bucket: 'ssg-cms-test',
     }));
-  stream.on('error', done);
-  stream.on('end', done);
+  if (error) stream.on('error', error);
+  stream.on('end', exit);
 };

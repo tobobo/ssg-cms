@@ -8,12 +8,13 @@
   <body>
     <p>
       <a href="/{{config.editBasePath}}">Editor Home</a> -
-      <a href="/" target="_blank">Preview</a> -
       <a href="/{{config.editBasePath}}/upload">Upload</a> -
+      <a href="/" target="_blank">Preview</a> -
       <a href="{{config.productionUrl}}" target="_blank">Production site</a>
     <p>
     <h1>Editor</h1>
     {{{ body }}}
+    <script src="/socket.io/socket.io.js"></script>
     <script src="{{assetBaseUrl}}/index.js"></script>
   </body>
 </html>
