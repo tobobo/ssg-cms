@@ -10,13 +10,11 @@ const app = express();
 app.set('server', createServer(app));
 app.set('config', config);
 
-const requireWithApp = (modules) =>
-  _.forEach(modules, modulePath => require(modulePath)(app));
-
 const libRoot = `${root}/app/lib`;
 const middlewareRoot = `${root}/app/middleware`;
 const routeRoot = `${root}/app/routes`;
-requireWithApp([
+
+_.forEach([
   `${libRoot}/setup_templates`,
   `${libRoot}/setup_socket`,
 
@@ -30,7 +28,7 @@ requireWithApp([
   `${routeRoot}/index`,
   `${routeRoot}/upload`,
   `${routeRoot}/edit`,
-]);
+], modulePath => require(modulePath)(app));
 
 app.set('startCmsServer', () => {
   app.get('server')
