@@ -7,6 +7,7 @@
         type="text"
         name="{{pathToParam (concat ../fieldPrefix field.path)}}"
         value="{{get ../editorSource (concat ../fieldPrefix field.path)}}"
+        data-opts="{{json path=field.path}}"
       >
     {{/equal}}
 
@@ -15,6 +16,7 @@
         name="{{pathToParam (concat ../fieldPrefix field.path)}}"
         cols="50"
         rows="15"
+        data-opts="{{json path=field.path}}"
 >{{get ../editorSource (concat ../fieldPrefix field.path)}}</textarea>
     {{/equal}}
 
@@ -23,7 +25,8 @@
         <ul>
           {{#each (get ../editorSource (concat ../fieldPrefix field.path)) as |listItem itemIndex|}}
             <li>
-{{> fields
+{{> listitem
+  listItem=listItem
   editorConfig=../../editorConfig
   fields=field.itemFields
   editorSource=../../editorSource
