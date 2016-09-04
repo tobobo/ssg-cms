@@ -53,11 +53,7 @@ module.exports = app => {
         'Handlebars.template(<%= contents %>));',
       {}, {
         imports: {
-          processPartialName: fileName =>
-            // Strip the extension and the underscore
-            // Escape the output with JSON.stringify
-            JSON.stringify(path.basename(fileName, '.js')),
-
+          processPartialName: fileName => JSON.stringify(path.basename(fileName, '.js')),
         },
       }))
       .pipe(concat('partials.js'))

@@ -5,10 +5,16 @@ const params = {};
 const PathParser = require('pathparser');
 window.Handlebars = require('handlebars/runtime');
 
+_.forEach(
+  require('../../app/shared/handlebars_helpers')(),
+  (helper, name) => window.Handlebars.registerHelper(name, helper)
+);
+
 const router = new PathParser(params);
 const app = {socket, router};
 window.App = app;
 
+const flashContainer = document.querySelectorAll('.js-flash-container')[0];
 app.flash = (type, message) => {
   const flash = message ? {type, message} : type;
   const flashEl = document.createElement('div');
@@ -17,7 +23,6 @@ app.flash = (type, message) => {
   flashContainer.appendChild(flashEl);
 };
 
-const flashContainer = document.querySelectorAll('.js-flash-container')[0];
 _.forEach(window.flashes, app.flash);
 delete window.flashes;
 
