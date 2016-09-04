@@ -1,5 +1,5 @@
 module.exports = function edit(app) {
-  app.router.add('/edit/:editor', function editor() {
+  app.router.add('/edit/:editor', () => {
     const editorEl = document.querySelector('.js-editor');
     const editorOpts = JSON.parse(editorEl.dataset.opts);
 
