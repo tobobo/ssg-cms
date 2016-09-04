@@ -37,12 +37,12 @@ module.exports = {
           type: 'list',
           itemFields: [
             {
-              title: 'Property name',
+              title: 'Name',
               path: 'prop',
               type: 'text',
             },
             {
-              title: 'Other property name',
+              title: 'Description',
               path: 'otherProp',
               type: 'text',
             },

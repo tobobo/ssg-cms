@@ -14,7 +14,7 @@ const router = new PathParser(params);
 const app = {socket, router, handlebars};
 window.App = app;
 
-const flashContainer = document.querySelectorAll('.js-flash-container')[0];
+const flashContainer = document.querySelector('.js-flash-container');
 app.flash = (typeOrFlash, message) => {
   const flash = message ? {type: typeOrFlash, message} : typeOrFlash;
   const flashEl = document.createElement('div');
@@ -28,4 +28,6 @@ delete window.flashes;
 require('./routes/upload')(app);
 require('./routes/edit')(app);
 
-router.run(window.location.pathname + window.location.search);
+document.addEventListener('DOMContentLoaded', () =>
+  router.run(window.location.pathname + window.location.search)
+);

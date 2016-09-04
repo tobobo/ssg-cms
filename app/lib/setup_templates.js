@@ -6,13 +6,14 @@ module.exports = app => {
   const viewsDir = 'app/views';
   app.set('views', viewsDir);
 
-  app.engine('.hbs', exphbs({
+  const templates = exphbs.create({
     defaultLayout: 'app',
     extname: '.hbs',
     layoutsDir: `${viewsDir}/layouts`,
     partialsDir: `${viewsDir}/partials`,
     helpers: handlebarsHelpers(),
-  }));
+  });
 
+  app.engine('.hbs', templates.engine);
   app.set('view engine', '.hbs');
 };

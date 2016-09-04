@@ -19,18 +19,21 @@
     {{/equal}}
 
     {{#equal field.type 'list'}}
-      <ul>
-        {{#each (get ../editorSource field.path) as |listItem itemIndex|}}
-          <li>
+      <div class="js-field-list" data-opts="{{json listPath=(concat fieldPrefix field.path) field=field}}">
+        <ul>
+          {{#each (get ../editorSource (concat ../fieldPrefix field.path)) as |listItem itemIndex|}}
+            <li>
 {{> fields
   editorConfig=../../editorConfig
   fields=field.itemFields
   editorSource=../../editorSource
   fieldPrefix=(concat ../fieldPrefix field.path '.' itemIndex '.')
 }}
-          </li>
-        {{/each}}
-      </ul>
+            </li>
+          {{/each}}
+        </ul>
+        <a class="js-append-to-list" href="#">add to end of list</a>
+      </div>
     {{/equal}}
   </p>
 {{/each}}
