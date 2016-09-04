@@ -3,23 +3,22 @@ window._ = require('lodash');
 const socket = window.io();
 const params = {};
 const PathParser = require('pathparser');
-window.Handlebars = require('handlebars/runtime');
+const handlebars = window.Handlebars = require('handlebars/runtime');
 
 _.forEach(
   require('../../app/shared/handlebars_helpers')(),
-  (helper, name) => window.Handlebars.registerHelper(name, helper)
+  (helper, name) => handlebars.registerHelper(name, helper)
 );
 
 const router = new PathParser(params);
-const app = {socket, router};
+const app = {socket, router, handlebars};
 window.App = app;
 
 const flashContainer = document.querySelectorAll('.js-flash-container')[0];
-app.flash = (type, message) => {
-  const flash = message ? {type, message} : type;
+app.flash = (typeOrFlash, message) => {
+  const flash = message ? {type: typeOrFlash, message} : typeOrFlash;
   const flashEl = document.createElement('div');
-  flashEl.className = `flash ${flash.type}`;
-  flashEl.innerHTML = flash.message;
+  flashEl.innerHTML = handlebars.partials.flash({flash});
   flashContainer.appendChild(flashEl);
 };
 
