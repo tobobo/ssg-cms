@@ -5,6 +5,12 @@ module.exports = {
   editBasePath: 'edit',
   siteConfig: 'config.json',
   productionUrl: 'http://ssg-cms-test.s3-website-us-west-2.amazonaws.com/',
+  s3Config: {
+    key: process.env.SSGCMS_AWS_KEY,
+    secret: process.env.SSGCMS_AWS_SECRET,
+    region: process.env.SSGCMS_AWS_REGION,
+    bucket: process.env.SSGCMS_AWS_BUCKET,
+  },
   editors: [
     {
       previewPath: '/',
