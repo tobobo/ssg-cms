@@ -3,7 +3,6 @@ module.exports = {
   sitePath: 'site',
   distPath: 'dist',
   editBasePath: 'edit',
-  siteConfig: 'config.json',
   productionUrl: 'http://ssg-cms-test.s3-website-us-west-2.amazonaws.com/',
   s3Config: {
     key: process.env.SSGCMS_AWS_KEY,
