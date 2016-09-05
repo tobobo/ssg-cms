@@ -25,6 +25,13 @@ module.exports = {
           path: 'locals.title',
           type: 'text',
         },
+        {
+          title: 'Site Logo',
+          path: 'locals.logo',
+          type: 'image',
+          basePath: 'contents/images',
+          configBase: 'images',
+        },
       ],
     },
     {

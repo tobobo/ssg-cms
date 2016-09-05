@@ -20,8 +20,19 @@
 >{{get ../editorSource (concat ../fieldPrefix field.path)}}</textarea>
     {{/equal}}
 
+    {{#equal field.type 'image'}}
+      <div class="js-image-field" data-opts="{{json field=field}}">
+        Path: {{field.basePath}}/<input class="js-image-path"></input>
+        <input type="hidden" class="js-hidden-image-input" name="{{pathToParam (concat ../fieldPrefix field.path)}}" id="{{pathToParam (concat ../fieldPrefix field.path)}}">
+        <div class="js-image-upload" name="/image/path">
+          DROPZONE!!!
+        </div>
+      </div>
+    {{/equal}}
+
     {{#equal field.type 'list'}}
       <div class="js-field-list" data-opts="{{json listPath=(concat fieldPrefix field.path) field=field}}">
+        <a class="js-prepend-to-list" href="#">+ add to beginning</a>
         <ul>
           {{#each (get ../editorSource (concat ../fieldPrefix field.path)) as |listItem itemIndex|}}
             <li>
@@ -35,7 +46,7 @@
             </li>
           {{/each}}
         </ul>
-        <a class="js-append-to-list" href="#">add to end of list</a>
+        <a class="js-append-to-list" href="#">+ add to end</a>
       </div>
     {{/equal}}
   </p>

@@ -27,6 +27,7 @@ _.forEach([
 
   `${routeRoot}/index`,
   `${routeRoot}/upload`,
+  `${routeRoot}/fileupload`,
   `${routeRoot}/edit`,
 ], modulePath => require(modulePath)(app));
 
