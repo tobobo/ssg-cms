@@ -35,8 +35,8 @@ module.exports = function edit(app) {
           },
           success(err, response) {
             const pathPrefix = fieldOpts.field.configPrefix ?
-            `/${fieldOpts.field.configPrefix}` : '/';
-            hiddenfileInput.value = `${pathPrefix}/${response.filePath}`;
+            `/${fieldOpts.field.configPrefix}` : '';
+            hiddenfileInput.value = `${pathPrefix}${response.filePath}`;
           },
         });
       });

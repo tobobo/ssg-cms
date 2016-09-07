@@ -1,6 +1,6 @@
 module.exports = {
   port: 3000,
-  sitePath: 'site',
+  sitePath: 'catherine',
   distPath: 'dist',
   editBasePath: 'edit',
   productionUrl: 'http://ssg-cms-test.s3-website-us-west-2.amazonaws.com/',
@@ -11,6 +11,60 @@ module.exports = {
     bucket: process.env.SSGCMS_AWS_BUCKET,
   },
   editors: [
+    {
+      previewPath: '/blog',
+      name: 'blogposts',
+      title: 'Blog Posts',
+      source: {
+        filename: 'config.json',
+        type: 'json',
+      },
+      /*
+      "title": "Episode 26: Why?",
+      "image": "nerves.jpg",
+      "date": "August 21st, 2016",
+      "url": "https://medium.com/@catherinearmsden/an-alert-well-hydrated-artist-in-no-acute-distress-1203e68ac2c0",
+      "excerpt": "W
+      */
+      fields: [
+        {
+          title: 'Item list',
+          path: 'locals.blogPosts',
+          type: 'list',
+          itemFields: [
+            {
+              title: 'Title',
+              path: 'title',
+              type: 'text',
+            },
+            {
+              title: 'Date',
+              path: 'date',
+              type: 'text',
+            },
+            {
+              title: 'Medium URL',
+              path: 'url',
+              type: 'text',
+            },
+            {
+              title: 'excerpt',
+              path: 'excerpt',
+              type: 'textarea',
+            },
+            {
+              title: 'Image',
+              path: 'image',
+              type: 'file',
+              basePath: 'contents/images/blog',
+              configPrefix: '',
+              urlPathPrefix: '/images/blog'
+            },
+          ],
+        },
+      ],
+    },
+    /*
     {
       previewPath: '/',
       name: 'config',
@@ -90,5 +144,6 @@ module.exports = {
         },
       ],
     },
+    */
   ],
 };

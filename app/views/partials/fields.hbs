@@ -22,7 +22,9 @@
 
     {{#equal field.type 'file'}}
       <div class="js-file-field" data-opts="{{json field=field}}">
-        <img class="file-upload-preview" src="{{concat (get ../editorSource (concat ../fieldPrefix field.path))}}">
+        {{#if (get ../editorSource (concat ../fieldPrefix field.path))}}
+          <img class="file-current-image" src="{{concat field.urlPathPrefix '/' (get ../editorSource (concat ../fieldPrefix field.path))}}">
+        {{/if}}
         <input
           type="hidden"
           class="js-hidden-file-input"

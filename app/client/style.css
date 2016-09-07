@@ -30,3 +30,7 @@ h2 {
 .flash.error {
   background-color: red;
 }
+
+.file-current-image {
+  max-width: 200px;
+}
