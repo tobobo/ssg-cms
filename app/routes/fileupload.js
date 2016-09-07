@@ -7,16 +7,17 @@ module.exports = app => {
   const config = app.get('config');
   app.post('/edit/files', (req, res) => {
     const busboy = new Busboy({headers: req.headers});
-    let relFilePath;
+    const filePath = req.headers['x-file-path'];
+    const fileBasePath = req.headers['x-file-base-path'];
+
     busboy.on('file', (fieldname, file) => {
-      relFilePath = fieldname;
-      const filePath = path.join(config.sitePath, relFilePath);
-      const dirName = path.dirname(filePath);
-      mkdirp(dirName, () => file.pipe(fs.createWriteStream(filePath)));
+      const fileWritePath = path.join(config.sitePath, fileBasePath, filePath);
+      const dirName = path.dirname(fileWritePath);
+      mkdirp(dirName, () => file.pipe(fs.createWriteStream(fileWritePath)));
     });
 
     busboy.on('finish', () => {
-      res.json({filename: path.join('images', path.basename(relFilePath))});
+      res.json({filePath});
     });
 
     return req.pipe(busboy);

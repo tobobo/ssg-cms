@@ -3,6 +3,7 @@ const express = require('express');
 const handlebars = require('handlebars');
 const gulp = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
+const replace = require('gulp-replace');
 const watch = require('gulp-watch');
 const wrap = require('gulp-wrap');
 const declare = require('gulp-declare');
@@ -13,6 +14,8 @@ const buffer = require('vinyl-buffer');
 const browserify = require('browserify');
 const watchify = require('watchify');
 const babel = require('babelify');
+
+const vendorCss = ['./node_modules/dropzone/dist/min/basic.min.css'];
 
 module.exports = app => {
   const jsBundler = watchify(browserify('./app/client/index.js', {debug: true}).transform(babel));
@@ -29,6 +32,9 @@ module.exports = app => {
       .pipe(gulp.dest('./app/public'));
 
     cssBundler
+      .pipe(gulp.src(['./app/client/**/*.css'].concat(vendorCss)))
+      .pipe(replace(/\.dropzone/g, '.file-upload'))
+      .pipe(concat('style.css'))
       .pipe(gulp.dest('./app/public'));
 
     hbsBundler

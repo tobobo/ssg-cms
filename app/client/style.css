@@ -1,5 +1,6 @@
 body, html {
   font-family: 'Helvetica Neue';
+  color: #444;
 }
 
 a, a:visited {
@@ -24,4 +25,8 @@ h2 {
 
 .flash.success {
   background-color: #73c594;
+}
+
+.flash.error {
+  background-color: red;
 }

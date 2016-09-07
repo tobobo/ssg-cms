@@ -31,3 +31,8 @@ require('./routes/edit')(app);
 document.addEventListener('DOMContentLoaded', () =>
   router.run(window.location.pathname + window.location.search)
 );
+
+window.addEventListener('error', (err) => {
+  app.flash('error', err.message);
+  console.log(err, err);
+});

@@ -28,9 +28,9 @@ module.exports = {
         {
           title: 'Site Logo',
           path: 'locals.logo',
-          type: 'image',
+          type: 'file',
           basePath: 'contents/images',
-          configBase: 'images',
+          configPrefix: 'images',
         },
       ],
     },
@@ -48,6 +48,13 @@ module.exports = {
           path: 'locals.itemList',
           type: 'list',
           itemFields: [
+            {
+              title: 'Image',
+              path: 'imgSrc',
+              type: 'file',
+              basePath: 'contents/images/list',
+              configPrefix: 'images/list',
+            },
             {
               title: 'Name',
               path: 'prop',
