@@ -6,7 +6,7 @@ const config = require(`${root}/config`);
 const generator = require(`${root}/app/lib/generators/wintersmith`);
 const PORT = config.port;
 const PREVIEW_PORT = PORT + 1;
-const PREVIEW_DELAY = 100;
+const PREVIEW_DELAY = 0;
 const PREVIEW_RETRY = 100;
 const PREVIEW_TIMEOUT = 10000;
 
@@ -20,7 +20,6 @@ function trySendPreview(startTime, req, res) {
   })
     .on('error', err => {
       _.delay(() => trySendPreview(startTime, req, res), PREVIEW_RETRY);
-      res.status(500).send(`preview error: ${err}`);
     })
     .pipe(res);
 }
