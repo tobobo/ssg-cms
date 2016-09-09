@@ -13,12 +13,15 @@ const PREVIEW_TIMEOUT = 10000;
 const editPathRegexp = pathToRegexp(`/${config.editBasePath}/:edit_path*`);
 
 function trySendPreview(startTime, req, res) {
+  console.log('trysend');
   if (Date.now() - startTime > PREVIEW_TIMEOUT) res.sendStatus(500).end();
+  console.log(`http://localhost:${PREVIEW_PORT}${req.path}`);
   request.get({
-    uri: `http://127.0.0.1:${PREVIEW_PORT}${req.path}`,
+    uri: `http://localhost:${PREVIEW_PORT}${req.path}`,
     qs: req.query,
   })
     .on('error', err => {
+      console.log('trying again');
       _.delay(() => trySendPreview(startTime, req, res), PREVIEW_RETRY);
     })
     .pipe(res);

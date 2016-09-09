@@ -11,7 +11,7 @@ module.exports = app => {
     const fileBasePath = req.headers['x-file-base-path'];
 
     busboy.on('file', (fieldname, file) => {
-      const fileWritePath = path.join(config.sitePath, fileBasePath, filePath);
+      const fileWritePath = path.join(config.siteDir, fileBasePath, filePath);
       const dirName = path.dirname(fileWritePath);
       mkdirp(dirName, () => file.pipe(fs.createWriteStream(fileWritePath)));
     });

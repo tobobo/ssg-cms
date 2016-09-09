@@ -9,7 +9,15 @@ module.exports = app => {
     uploadButton.addEventListener('click', e => {
       e.preventDefault();
       buildInfo.innerHTML = '';
-      qwest.post(window.location.pathname);
+      qwest.post(window.location.pathname)
+        .catch((err, xhr, response) => {
+          console.log('response', response);
+          if (xhr.status === 400) {
+            app.flash('warning', 'No changes to upload');
+          } else {
+            app.flash('error', 'Upload error :(');
+          }
+        });
     });
     socket.on('build_start', () => concatBuildInfo('build start\n'));
     socket.on('build_upload_start', () => concatBuildInfo('upload start\n'));

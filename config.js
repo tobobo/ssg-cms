@@ -1,14 +1,19 @@
 module.exports = {
-  port: 3000,
-  sitePath: 'catherine',
-  distPath: 'dist',
+  port: 4000,
+  siteDir: 'catherine',
+  distDir: 'dist',
   editBasePath: 'edit',
-  productionUrl: 'http://ssg-cms-test.s3-website-us-west-2.amazonaws.com/',
+  // productionUrl: 'http://ssg-cms-test.s3-website-us-west-2.amazonaws.com/',
+  productionUrl: 'http://www.catherinearmsden.com',
   s3Config: {
     key: process.env.SSGCMS_AWS_KEY,
     secret: process.env.SSGCMS_AWS_SECRET,
     region: process.env.SSGCMS_AWS_REGION,
     bucket: process.env.SSGCMS_AWS_BUCKET,
+    // key: process.env.CATHERINE_AWS_KEY,
+    // secret: process.env.CATHERINE_AWS_SECRET,
+    // region: process.env.CATHERINE_AWS_REGION,
+    // bucket: process.env.CATHERINE_AWS_BUCKET,
   },
   editors: [
     {

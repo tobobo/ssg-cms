@@ -12,7 +12,7 @@ module.exports = {
   preview() {
     return runWithOutput({
       cmd: WINTERSMITH_COMMAND,
-      opts: ['preview', '-C', config.sitePath, '-p', PREVIEW_PORT],
+      opts: ['preview', '-C', config.siteDir, '-p', PREVIEW_PORT],
       logPrefix: 'preview',
     });
   },
@@ -20,7 +20,7 @@ module.exports = {
   build({data, error, exit}) {
     return runWithOutput({
       cmd: WINTERSMITH_COMMAND,
-      opts: ['build', '-C', config.sitePath, '-o', path.join('..', config.distPath)],
+      opts: ['build', '-C', config.siteDir, '-o', path.join('..', config.distDir)],
       logPrefix: 'build',
       data,
       error,

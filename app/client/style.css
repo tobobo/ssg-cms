@@ -31,6 +31,10 @@ h2 {
   background-color: red;
 }
 
+.flash.warning {
+  background-color: #fff68e;
+}
+
 .file-current-image {
   max-width: 200px;
 }

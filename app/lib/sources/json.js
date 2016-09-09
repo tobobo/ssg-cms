@@ -12,7 +12,7 @@ function write(path, data) {
     .then(editorSource => {
       traverseAndExtend(editorSource, data);
       const newConfigJson = JSON.stringify(editorSource, null, 2);
-      return writeFileP(path, newConfigJson);
+      return writeFileP(path, `${newConfigJson}\n`);
     });
 }
 

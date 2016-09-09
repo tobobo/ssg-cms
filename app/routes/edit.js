@@ -7,7 +7,7 @@ function sourceError(sourceConfig) {
 }
 
 function sourcePath(sourceConfig) {
-  return `${config.sitePath}/${sourceConfig.filename}`;
+  return `${config.siteDir}/${sourceConfig.filename}`;
 }
 
 function readSource(sourceConfig) {

@@ -2,7 +2,7 @@ const spawn = require('child_process').spawn;
 const chalk = require('chalk');
 
 module.exports = (opts) => {
-  const proc = spawn(opts.cmd, opts.opts);
+  const proc = spawn(opts.cmd, opts.opts, _.pick(opts, 'env'));
   const prefix = opts.logPrefix || 'subprocess';
 
   proc.stdout.on('data', data => {
@@ -10,14 +10,21 @@ module.exports = (opts) => {
     if (opts.data) opts.data(data);
   });
 
-  proc.stderr.on('error', err => {
-    process.stderr.write(chalk.red(`${prefix}: ${err}`));
-    if (opts.error) opts.error(err);
-  });
+  if (opts.getProc) opts.getProc(proc);
 
-  proc.on('exit', () => {
-    if (opts.exit) opts.exit();
-  });
+  return new Promise((resolve, reject) => {
+    proc.stderr.on('data', err => {
+      process.stderr.write(chalk.red(`${prefix}: ${err}`));
+      if (opts.error) opts.error(err);
+    });
 
-  return proc;
+    proc.on('exit', status => {
+      console.log('status', status);
+      if (status === 0) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
 };
